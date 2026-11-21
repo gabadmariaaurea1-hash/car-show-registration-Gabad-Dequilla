@@ -136,39 +136,60 @@ export default function RegistrationsPage() {
             </p>
           </div>
 
-          {loading && (
-            <div className="rounded-xl bg-white p-8 text-center">
-              Loading registrations...
-            </div>
-          )}
+          {/* LOADING STATE */}
+{loading && (
+  <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
+    <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-gray-900"></div>
 
-          {!loading && error && (
-            <div className="rounded-xl bg-white p-8 text-center">
-              <p className="text-red-600">{error}</p>
+    <p className="font-semibold text-gray-800">
+      Loading registrations...
+    </p>
 
-              <button
-                onClick={() => setRetry((current) => current + 1)}
-                className="mt-3 rounded-lg bg-gray-900 px-4 py-2 text-white"
-              >
-                Try again
-              </button>
-            </div>
-          )}
+    <p className="mt-1 text-sm text-gray-500">
+      Please wait while we retrieve the dashboard data.
+    </p>
+  </div>
+)}
 
-          {!loading && !error && registrations.length === 0 && (
-            <div className="rounded-xl bg-white p-8 text-center">
-              <p className="font-medium">
-                No registrations match your filters.
-              </p>
+{/* ERROR STATE */}
+{!loading && error && (
+  <div className="rounded-xl border border-red-200 bg-white p-8 text-center shadow-sm">
+    <h3 className="text-lg font-bold text-red-600">
+      Unable to Load Dashboard
+    </h3>
 
-              <button
-                onClick={clearFilters}
-                className="mt-3 rounded-lg bg-gray-900 px-4 py-2 text-white"
-              >
-                Clear filters
-              </button>
-            </div>
-          )}
+    <p className="mt-2 text-sm text-gray-600">
+      {error} Please check your API connection and try again.
+    </p>
+
+    <button
+      onClick={() => setRetry((current) => current + 1)}
+      className="mt-4 rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700"
+    >
+      Try Again
+    </button>
+  </div>
+)}
+
+{/* EMPTY STATE */}
+{!loading && !error && registrations.length === 0 && (
+  <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
+    <h3 className="text-lg font-bold text-gray-800">
+      No Registrations Found
+    </h3>
+
+    <p className="mt-2 text-sm text-gray-500">
+      There are no registrations matching your current filters.
+    </p>
+
+    <button
+      onClick={clearFilters}
+      className="mt-4 rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-700"
+    >
+      Clear Filters
+    </button>
+  </div>
+)}
 
           {!loading && !error && registrations.length > 0 && (
             <>
