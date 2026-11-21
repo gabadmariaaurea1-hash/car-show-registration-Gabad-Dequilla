@@ -54,7 +54,10 @@ export default function RegistrationTable({
 
           <tbody className="divide-y">
             {registrations.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr
+  key={item.id}
+  className="transition-colors duration-200 hover:bg-gray-100"
+>
                 <td className="p-4 font-semibold">
                   {item.registrationNumber}
                 </td>
