@@ -85,8 +85,18 @@ export default function RegistrationTable({
                 </td>
 
                 <td className="p-4">
-                  {item.registrationType}
-                </td>
+  <span
+    className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
+      item.registrationType === "Exhibitor"
+        ? "bg-purple-100 text-purple-700"
+        : item.registrationType === "Competitor"
+        ? "bg-blue-100 text-blue-700"
+        : "bg-pink-100 text-pink-700"
+    }`}
+  >
+    {item.registrationType}
+  </span>
+</td>
 
                 <td className="p-4">
                   <StatusBadge status={item.status} />
