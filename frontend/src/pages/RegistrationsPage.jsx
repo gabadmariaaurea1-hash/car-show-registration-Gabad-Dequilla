@@ -103,15 +103,24 @@ export default function RegistrationsPage() {
       </header>
 
       <main className="mx-auto max-w-7xl space-y-6 px-6 py-8">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">
-            Registration Overview
-          </h2>
+       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <div>
+    <h2 className="text-2xl font-bold text-gray-900">
+      Registration Overview
+    </h2>
 
-          <p className="mt-1 text-gray-500">
-            Monitor registrations and event payments.
-          </p>
-        </div>
+    <p className="mt-1 text-gray-500">
+      Monitor registrations and event payments.
+    </p>
+  </div>
+
+  <button
+    onClick={() => window.location.reload()}
+    className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+  >
+    ↻ Refresh Dashboard
+  </button>
+</div>
 
         <KpiCards summary={summary} />
 
