@@ -89,7 +89,7 @@ export default function RegistrationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+   <div className="min-h-screen bg-gray-100 p-3 sm:p-5 lg:p-8">
       <header className="bg-gray-900 px-6 py-6 text-white">
         <div className="mx-auto max-w-7xl">
           <h1 className="text-2xl font-bold">
@@ -203,8 +203,11 @@ export default function RegistrationsPage() {
           {!loading && !error && registrations.length > 0 && (
             <>
               <RegistrationTable
-                registrations={registrations}
-              />
+  registrations={registrations}
+  page={page}
+  pageSize={pageSize}
+  totalCount={totalCount}
+/>
 
               <Pagination
                 page={page}

@@ -7,27 +7,22 @@ const peso = new Intl.NumberFormat("en-PH", {
   currency: "PHP",
 })
 
+function formatDate(date) {
+  return new Date(date).toLocaleDateString("en-PH", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
+}
+
 export default function RegistrationTable({
   registrations,
   page,
   pageSize,
   totalCount,
 }) {
-  function formatDate(date) {
-    return new Date(date).toLocaleString("en-PH", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    })
-  }
-
-  // Registration count summary
-  const start = totalCount === 0
-    ? 0
-    : (page - 1) * pageSize + 1
+  const start =
+    totalCount === 0 ? 0 : (page - 1) * pageSize + 1
 
   const end = Math.min(page * pageSize, totalCount)
 
@@ -54,10 +49,7 @@ export default function RegistrationTable({
 
           <tbody className="divide-y">
             {registrations.map((item) => (
-              <tr
-  key={item.id}
-  className="transition-colors duration-200 hover:bg-gray-100"
->
+              <tr key={item.id} className="hover:bg-gray-50">
                 <td className="p-4 font-semibold">
                   {item.registrationNumber}
                 </td>
@@ -88,18 +80,8 @@ export default function RegistrationTable({
                 </td>
 
                 <td className="p-4">
-  <span
-    className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
-      item.registrationType === "Exhibitor"
-        ? "bg-purple-100 text-purple-700"
-        : item.registrationType === "Competitor"
-        ? "bg-blue-100 text-blue-700"
-        : "bg-pink-100 text-pink-700"
-    }`}
-  >
-    {item.registrationType}
-  </span>
-</td>
+                  {item.registrationType}
+                </td>
 
                 <td className="p-4">
                   <StatusBadge status={item.status} />
@@ -123,4 +105,3 @@ export default function RegistrationTable({
     </div>
   )
 }
-
