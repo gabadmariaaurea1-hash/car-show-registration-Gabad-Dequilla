@@ -1,38 +1,53 @@
 
+
 const API_BASE_URL = "http://localhost:5205/api";
 
-export async function getRegistrations(page = 1, pageSize = 10) {
-  const response = await fetch(
-    `${API_BASE_URL}/registrations?page=${page}&pageSize=${pageSize}`
-  );
+async function apiRequest(url) {
+  const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch registrations: ${response.status}`);
+    throw new Error(`API request failed: ${response.status}`);
   }
 
-  return await response.json();
+  return response.json();
 }
 
-export async function getRegistrationSummary() {
-  const response = await fetch(
-    `${API_BASE_URL}/registrations/summary`
+// Get registrations with search, filters, and pagination
+export async function getRegistrations({
+  participantName = "",
+  type = "",
+  status = "",
+  page = 1,
+  pageSize = 10,
+} = {}) {
+  const params = new URLSearchParams();
+
+  params.append("page", page);
+  params.append("pageSize", pageSize);
+
+  if (participantName.trim()) {
+    params.append("participantName", participantName.trim());
+  }
+
+  if (type) {
+    params.append("type", type);
+  }
+
+  if (status) {
+    params.append("status", status);
+  }
+
+  return apiRequest(
+    `${API_BASE_URL}/registrations?${params.toString()}`
   );
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch summary: ${response.status}`);
-  }
-
-  return await response.json();
 }
 
+// Get dashboard summary
+export async function getSummary() {
+  return apiRequest(`${API_BASE_URL}/registrations/summary`);
+}
+
+// Get one registration
 export async function getRegistrationById(id) {
-  const response = await fetch(
-    `${API_BASE_URL}/registrations/${id}`
-  );
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch registration: ${response.status}`);
-  }
-
-  return await response.json();
+  return apiRequest(`${API_BASE_URL}/registrations/${id}`);
 }
