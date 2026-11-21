@@ -15,11 +15,27 @@ export default function KpiCards({ summary }) {
     )
   }
 
+  const formatCurrency = (amount) =>
+    new Intl.NumberFormat("en-PH", {
+      style: "currency",
+      currency: "PHP",
+    }).format(amount ?? 0)
+
   const cards = [
     {
       title: "Total Registrations",
       value: summary.totalRegistrations,
       description: "All registered participants",
+    },
+    {
+      title: "Total Payments",
+      value: formatCurrency(summary.totalAmountPaid),
+      description: "Payments received",
+    },
+    {
+      title: "Uncollected Payments",
+      value: formatCurrency(summary.totalOutstandingBalance),
+      description: "Remaining payments",
     },
     {
       title: "Confirmed",
@@ -30,16 +46,6 @@ export default function KpiCards({ summary }) {
       title: "Checked In",
       value: summary.checkedIn,
       description: "Participants checked in",
-    },
-    {
-      title: "Pending",
-      value: summary.pending,
-      description: "Awaiting confirmation",
-    },
-    {
-      title: "Cancelled",
-      value: summary.cancelled,
-      description: "Cancelled registrations",
     },
   ]
 
