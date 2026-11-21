@@ -15,13 +15,27 @@ export default function RegistrationFilters({
           Search Participant
         </label>
 
-        <input
-          type="text"
-          placeholder="Search participant name..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-lg border px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search participant name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-lg border px-4 py-2 pr-10 outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {search && (
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500"
+              aria-label="Clear search"
+              title="Clear search"
+            >
+              ×
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="flex-1">
@@ -61,6 +75,7 @@ export default function RegistrationFilters({
 
       <div className="flex items-end">
         <button
+          type="button"
           onClick={onClear}
           className="w-full rounded-lg bg-gray-200 px-5 py-2 font-medium hover:bg-gray-300 md:w-auto"
         >
@@ -68,5 +83,5 @@ export default function RegistrationFilters({
         </button>
       </div>
     </div>
-  )
+  );
 }
